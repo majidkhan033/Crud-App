@@ -1,0 +1,109 @@
+<?php
+session_start();
+require 'db.php';
+
+if (!isset($_SESSION['user'])) {
+    header("Location: index.php");
+    exit;
+}
+
+// Fetch all users
+$users = $collection->find();
+
+// Handle CRUD actions
+if (isset($_POST['add'])) {
+    $collection->insertOne([
+        'email' => $_POST['email'],
+        'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+    ]);
+    $_SESSION['msg'] = "User added!";
+    header("Location: users_crud.php");
+    exit;
+}
+
+if (isset($_POST['update'])) {
+    $collection->updateOne(
+        ['_id' => new MongoDB\BSON\ObjectId($_POST['id'])],
+        ['$set' => ['email' => $_POST['email']]]
+    );
+    $_SESSION['msg'] = "User updated!";
+    header("Location: users_crud.php");
+    exit;
+}
+
+if (isset($_GET['delete'])) {
+    $collection->deleteOne(['_id' => new MongoDB\BSON\ObjectId($_GET['delete'])]);
+    $_SESSION['msg'] = "User deleted!";
+    header("Location: users_crud.php");
+    exit;
+}
+
+$editUser = null;
+if (isset($_GET['edit'])) {
+    $editUser = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId($_GET['edit'])]);
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User CRUD (Plain CSS)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>User Management</h2>
+
+        <?php if (!empty($_SESSION['msg'])): ?>
+            <p style="color: green;"><?= $_SESSION['msg'];
+            unset($_SESSION['msg']); ?></p>
+        <?php endif; ?>
+
+        <!-- Add/Edit Form -->
+        <form method="POST">
+            <input type="hidden" name="id" value="<?= $editUser['_id'] ?? '' ?>">
+            <input type="email" name="email" required placeholder="Email" value="<?= $editUser['email'] ?? '' ?>">
+            <?php if (!$editUser): ?>
+                <input type="password" name="password" required placeholder="Password">
+                <button name="add">Add User</button>
+            <?php else: ?>
+                <button name="update">Update User</button>
+                <a href="users_crud.php"><button type="button">Cancel</button></a>
+            <?php endif; ?>
+        </form>
+
+        <!-- Users Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>User ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($users as $user): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($user['email']) ?></td>
+                        <td><?= $user['_id'] ?></td>
+                        <td class="actions">
+                            <a href="users_crud.php?edit=<?= $user['_id'] ?>"><button>Edit</button></a>
+                            <a href="users_crud.php?delete=<?= $user['_id'] ?>"
+                                onclick="return confirm('Are you sure you want to delete this user?');">
+                                <button class="delete-btn">Delete</button>
+                        </td>
+
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <br>
+        <a href="dashboard.php"><button>← Back to Dashboard</button></a>
+    </div>
+</body>
+
+</html>

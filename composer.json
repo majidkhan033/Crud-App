@@ -1,0 +1,17 @@
+{
+    "name": "administrator/php-mongo-crud",
+    "autoload": {
+        "psr-4": {
+            "Administrator\\PhpMongoCrud\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Abdul Majid Khan",
+            "email": "kmajid748@gmail.com"
+        }
+    ],
+    "require": {
+        "mongodb/mongodb": "^1.21"
+    }
+}

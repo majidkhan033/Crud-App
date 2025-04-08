@@ -1,0 +1,152 @@
+/* General Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    padding: 40px;
+}
+
+/* Container */
+.container {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Headings */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form Styling */
+form input[type="email"],
+form input[type="password"],
+form button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+form button {
+    background-color: #7428a7;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #3b1157;
+}
+
+/* Table */
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Table Header */
+table thead th {
+    background-color: #f4f4f4;
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+/* Table Rows */
+table tbody td {
+    padding: 12px;
+    border: 1px solid #ccc;
+}
+
+/* Optional: Add hover effect for rows */
+table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Buttons inside table */
+/* Actions Column: align buttons horizontally */
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Make buttons uniform in size */
+.actions button {
+    padding: 6px 12px;
+    font-size: 13px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Edit Button */
+.actions button {
+    background-color: #007bff;
+    color: white;
+}
+
+.actions button:hover {
+    background-color: #0056b3;
+}
+
+/* Delete Button */
+.actions .delete-btn {
+    background-color: #dc3545;
+}
+
+.actions .delete-btn:hover {
+    background-color: #c82333;
+}
+
+
+/* Links */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Success and Error Messages */
+p.success {
+    color: green;
+    margin-bottom: 10px;
+}
+
+p.error {
+    color: red;
+    margin-bottom: 10px;
+}
+
+/* Dashboard Buttons */
+.container a button {
+    width: auto;
+    padding: 10px 20px;
+    margin-right: 10px;
+}
