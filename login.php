@@ -9,6 +9,7 @@ if (isset($_POST['login'])) {
     $user = $collection->findOne(['email' => $email]);
 
     if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['msg'] = "User added!";
         $_SESSION['user'] = (string)$user['_id'];
         header('Location: dashboard.php');
         exit;
@@ -41,7 +42,7 @@ if (isset($_POST['login'])) {
         <button name="login">Login</button>
     </form>
 
-    <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
+    <p class="acc-detail">Don't have an account? <a href="signup.php">Sign Up</a></p>
 </div>
 </body>
 </html>

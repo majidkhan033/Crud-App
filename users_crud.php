@@ -11,8 +11,13 @@ if (!isset($_SESSION['user'])) {
 $users = $collection->find();
 
 // Handle CRUD actions
+
+// Add User
 if (isset($_POST['add'])) {
     $collection->insertOne([
+        'first_name' => $_POST['first_name'],
+        'last_name' => $_POST['last_name'],
+        'mobile' => $_POST['mobile'],
         'email' => $_POST['email'],
         'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
     ]);
@@ -21,15 +26,24 @@ if (isset($_POST['add'])) {
     exit;
 }
 
+//Update User
+
 if (isset($_POST['update'])) {
     $collection->updateOne(
         ['_id' => new MongoDB\BSON\ObjectId($_POST['id'])],
-        ['$set' => ['email' => $_POST['email']]]
+        ['$set' => [
+            'first_name' => $_POST['first_name'],
+            'last_name' => $_POST['last_name'],
+            'mobile' => $_POST['mobile'],
+            'email' => $_POST['email']
+            ]]
     );
     $_SESSION['msg'] = "User updated!";
     header("Location: users_crud.php");
     exit;
 }
+
+// Delete User
 
 if (isset($_GET['delete'])) {
     $collection->deleteOne(['_id' => new MongoDB\BSON\ObjectId($_GET['delete'])]);
@@ -37,6 +51,8 @@ if (isset($_GET['delete'])) {
     header("Location: users_crud.php");
     exit;
 }
+
+//Edit User
 
 $editUser = null;
 if (isset($_GET['edit'])) {
@@ -49,7 +65,7 @@ if (isset($_GET['edit'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>User CRUD (Plain CSS)</title>
+    <title>User CRUD</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -65,6 +81,9 @@ if (isset($_GET['edit'])) {
         <!-- Add/Edit Form -->
         <form method="POST">
             <input type="hidden" name="id" value="<?= $editUser['_id'] ?? '' ?>">
+            <input type="text" name="first_name" required placeholder="First Name" value="<?= $editUser['first_name'] ?? '' ?>">
+        <input type="text" name="last_name" required placeholder="Last Name" value="<?= $editUser['last_name'] ?? '' ?>">
+        <input type="text" name="mobile" required placeholder="Mobile Number" value="<?= $editUser['mobile'] ?? '' ?>">
             <input type="email" name="email" required placeholder="Email" value="<?= $editUser['email'] ?? '' ?>">
             <?php if (!$editUser): ?>
                 <input type="password" name="password" required placeholder="Password">
@@ -79,6 +98,9 @@ if (isset($_GET['edit'])) {
         <table>
             <thead>
                 <tr>
+                <th>First Name</th>
+            <th>Last Name</th>
+            <th>Mobile</th>
                     <th>Email</th>
                     <th>User ID</th>
                     <th>Actions</th>
@@ -87,6 +109,9 @@ if (isset($_GET['edit'])) {
             <tbody>
                 <?php foreach ($users as $user): ?>
                     <tr>
+                    <td><?= htmlspecialchars($user['first_name'] ?? '-') ?></td>
+                <td><?= htmlspecialchars($user['last_name'] ?? '-') ?></td>
+                <td><?= htmlspecialchars($user['mobile'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($user['email']) ?></td>
                         <td><?= $user['_id'] ?></td>
                         <td class="actions">

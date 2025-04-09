@@ -14,10 +14,10 @@ body {
 
 /* Container */
 .container {
-    max-width: 500px;
+    max-width: 700px;
     margin: auto;
     background: white;
-    padding: 30px;
+    padding: 25px 30px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
@@ -25,41 +25,80 @@ body {
 /* Headings */
 h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     color: #333;
 }
 
 /* Form Styling */
-form input[type="email"],
-form input[type="password"],
-form button {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"] {
+    padding: 10px;
+    font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 6px;
-    font-size: 14px;
+    transition: border 0.3s ease;
 }
 
-form button {
-    background-color: #7428a7;
+input:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Button styling */
+button {
+    background-color: #4CAF50;
     color: white;
-    font-weight: bold;
     border: none;
+    padding: 10px 15px;
+    font-size: 15px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background 0.3s ease;
 }
 
-form button:hover {
-    background-color: #3b1157;
+button:hover {
+    background-color: #45a049;
 }
+
+button.delete-btn {
+    background-color: #f44336;
+}
+
+button.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+button[type="button"] {
+    background-color: #888;
+}
+
+button[type="button"]:hover {
+    background-color: #777;
+}
+
+.logout-btn {
+    background-color: #f57c00;
+}
+
+.logout-btn:hover {
+    background-color: #e65100;
+}
+
 
 /* Table */
 /* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 30px;
     background-color: #fff;
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
@@ -149,4 +188,18 @@ p.error {
     width: auto;
     padding: 10px 20px;
     margin-right: 10px;
+}
+
+.user-info p {
+    background: #f5f5f5;
+    padding: 10px;
+    margin: 5px 0;
+    border-left: 4px solid #4CAF50;
+    font-size: 16px;
+}
+
+.acc-detail {
+    padding: 20px;
+    margin-top: 10px;
+    text-align: center;
 }
